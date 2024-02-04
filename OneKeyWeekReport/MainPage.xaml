@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneKeyWeekReport.MainPage"
+             xmlns:local="clr-namespace:OneKeyWeekReport">
+
+    <ScrollView>
+        <VerticalStackLayout
+            Padding="30,0"
+            Spacing="25"
+            x:Name="mainStackLayout">
+
+            <Button
+                x:Name="CounterBtn"
+                Text="Click me"
+                SemanticProperties.Hint="Counts the number of times you click"
+                Clicked="OnCounterClicked"
+                HorizontalOptions="Fill" />
+
+            <!-- +号按钮 -->
+            <Button Text="+" Clicked="AddNewBox" HorizontalOptions="End" VerticalOptions="End" />
+            <!-- 初始框 -->
+            <local:FormBoxView />
+            <!-- 第一个部分 -->
+            <Label Text="{Binding CreatedTaskInfo}" />
+            <ListView ItemsSource="{Binding CreatedTasks}">
+                <!-- 设置ListView的数据模板 -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <!-- 添加更多的行定义，根据需要 -->
+                                </Grid.RowDefinitions>
+
+                                <Label Grid.Row="0" Text="{Binding Id}" />
+                                <Label Grid.Row="1" Text="{Binding Project}" />
+                                <Label Grid.Row="2" Text="{Binding TaskName}" />
+                                <Label Grid.Row="3" Text="{Binding OriginalEstimate}" />
+                                <Label Grid.Row="4" Text="{Binding ParentUserStory}" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- 第二个部分 -->
+            <Label Text="{Binding ClosedTaskInfo}" />
+            <ListView ItemsSource="{Binding ClosedTasks}">
+                <!-- 设置ListView的数据模板 -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding TaskInfo}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- 第三个部分 -->
+            <Label Text="{Binding ClosedBugInfo}" />
+            <ListView ItemsSource="{Binding ClosedBugs}">
+                <!-- 设置ListView的数据模板 -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding BugInfo}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <!-- 第四个部分 -->
+            <Label Text="{Binding NewOrActiveTaskInfo}" />
+            <ListView ItemsSource="{Binding NewOrActiveTasks}">
+                <!-- 设置ListView的数据模板 -->
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <TextCell Text="{Binding TaskInfo}" />
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>

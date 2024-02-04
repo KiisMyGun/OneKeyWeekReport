@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="OneKeyWeekReport.NewPage1"
+             Title="NewPage1">
+    <VerticalStackLayout x:Name="stackLayout">
+        <Label x:Name="label1" Text="Created Task Total Original Estimate = XXX 小时" />
+        <ListView x:Name="listView1">
+            <ListView.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <!-- ... 其他列定义 -->
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Task ID" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+                    <Label Text="Project" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+                    <Label Text="Task Name" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+                    <Label Text="Original Estimate" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="3" />
+                    <Label Text="Parent User Story" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="4" />
+                    <!-- ... 其他列的 Label -->
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <!-- ... 其他列定义 -->
+                            </Grid.ColumnDefinitions>
+
+                            <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="LightGray" />
+                            <Label Text="{Binding Id}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+
+                            <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="LightGray" />
+                            <Label Text="{Binding Project}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+
+                            <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="LightGray" />
+                            <Label Text="{Binding TaskName}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+
+                            <BoxView Grid.Row="0" Grid.Column="3" BackgroundColor="LightGray" />
+                            <Label Text="{Binding OriginalEstimate}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="3" />
+
+                            <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="LightGray" />
+                            <Label Text="{Binding ParentUserStory}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="4" />
+
+                            <!-- ... 其他列的 BoxView 和 Label -->
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <!-- 第二个表格 -->
+        <Label x:Name="label2" Text="Closed Task Total Completed Work = XXX 小时" />
+        <ListView x:Name="listView2">
+            <ListView.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <!-- ... 其他列定义 -->
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Task ID" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+                    <Label Text="Project" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+                    <Label Text="Task Name" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+                    <Label Text="Completed Work" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="3" />
+                    <!-- ... 其他列的 Label -->
+                    <Label Text="Parent User Story" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="4" />
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <!-- ... 其他列定义 -->
+                            </Grid.ColumnDefinitions>
+
+                            <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="LightGray" />
+                            <Label Text="{Binding Id}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+
+                            <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="LightGray" />
+                            <Label Text="{Binding Project}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+
+                            <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="LightGray" />
+                            <Label Text="{Binding TaskName}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+
+                            <BoxView Grid.Row="0" Grid.Column="3" BackgroundColor="LightGray" />
+                            <Label Text="{Binding CompletedWork}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="3" />
+                            <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="LightGray" />
+                            <Label Text="{Binding ParentUserStory}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="4" />
+                            <!-- ... 其他列的 BoxView 和 Label -->
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- 第三个表格 -->
+        <Label x:Name="label3" Text="Closed Bug Total Completed Work = XXX 小时" />
+        <ListView x:Name="listView3">
+            <ListView.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <!-- ... 其他列定义 -->
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Task ID" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+                    <Label Text="Project" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+                    <Label Text="Bug Name" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+                    <Label Text="Completed Work" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="3" />
+                    <!-- ... 其他列的 Label -->
+                    <Label Text="Parent User Story" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="4" />
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <!-- ... 其他列定义 -->
+                            </Grid.ColumnDefinitions>
+
+                            <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="LightGray" />
+                            <Label Text="{Binding Id}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+
+                            <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="LightGray" />
+                            <Label Text="{Binding Project}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+
+                            <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="LightGray" />
+                            <Label Text="{Binding TaskName}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+
+                            <BoxView Grid.Row="0" Grid.Column="3" BackgroundColor="LightGray" />
+                            <Label Text="{Binding CompletedWork}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="3" />
+                            <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="LightGray" />
+                            <Label Text="{Binding ParentUserStory}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="4" />
+                            <!-- ... 其他列的 BoxView 和 Label -->
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+
+        <!-- 第四个表格 -->
+        <Label x:Name="label4" Text="New or Active Task Total Original Estimate = XXX 小时" />
+        <ListView x:Name="listView4">
+            <ListView.Header>
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <!-- ... 其他列定义 -->
+                    </Grid.ColumnDefinitions>
+
+                    <Label Text="Task ID" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+                    <Label Text="Project" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+                    <Label Text="Task Name" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+                    <Label Text="Original Estimate" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="3" />
+                    <!-- ... 其他列的 Label -->
+                    <Label Text="Parent User Story" FontAttributes="Bold" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="4" />
+                </Grid>
+            </ListView.Header>
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                                <!-- ... 其他列定义 -->
+                            </Grid.ColumnDefinitions>
+
+                            <BoxView Grid.Row="0" Grid.Column="0" BackgroundColor="LightGray" />
+                            <Label Text="{Binding Id}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="0" />
+
+                            <BoxView Grid.Row="0" Grid.Column="1" BackgroundColor="LightGray" />
+                            <Label Text="{Binding Project}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="1" />
+
+                            <BoxView Grid.Row="0" Grid.Column="2" BackgroundColor="LightGray" />
+                            <Label Text="{Binding TaskName}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="2" />
+
+                            <BoxView Grid.Row="0" Grid.Column="3" BackgroundColor="LightGray" />
+                            <Label Text="{Binding OriginalEstimate}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="3" />
+                            <BoxView Grid.Row="0" Grid.Column="4" BackgroundColor="LightGray" />
+                            <Label Text="{Binding ParentUserStory}" HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand" Grid.Row="0" Grid.Column="4" />
+                            <!-- ... 其他列的 BoxView 和 Label -->
+                        </Grid>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </VerticalStackLayout>
+</ContentPage>
