@@ -13,9 +13,6 @@
 
                 <!-- +号按钮 -->
                 <Button Content="+" Click="AddNewBox" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
-
-                <!-- 初始框 -->
-                <local:UserControl1 />
             </StackPanel>
         </ScrollViewer>
     </Grid>

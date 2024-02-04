@@ -1,4 +1,5 @@
-﻿using System.Net.Http;
+﻿using System.IO;
+using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Windows;
@@ -33,6 +34,42 @@ namespace WpfApp1
         public MainWindow()
         {
             InitializeComponent();
+            LoadSetting();
+        }
+
+        public void LoadSetting()
+        {
+            string jsonFilePath = "settings.json";
+            string jsonContent = File.ReadAllText(jsonFilePath);
+            // 解析JSON内容
+            JObject jsonObject = JObject.Parse(jsonContent);
+
+            // 获取Setting数组
+            JArray settingsArray = (JArray)jsonObject["Setting"];
+
+            // 假设只有一个Setting对象
+            if (settingsArray != null && settingsArray.Count > 0)
+            {
+                foreach (var item in settingsArray)
+                {
+                    string organizationText = item["OrganizationText"].ToString();
+                    string projectText = item["ProjectText"].ToString();
+                    string tokenText = item["TokenText"].ToString();
+
+                    UserControl1 newBoxView = new UserControl1();
+
+                    newBoxView.organizationEntry.Text = organizationText;
+                    newBoxView.projectEntry.Text = projectText;
+                    newBoxView.tokenEntry.Text = tokenText;
+
+                    // 将新框添加到 mainStackLayout 中
+                    mainStackLayout.Children.Insert(mainStackLayout.Children.Count - 1, newBoxView);
+                }
+            }
+            else
+            {
+                MessageBox.Show("No settings found in the JSON file.");
+            }
         }
 
         public async Task<dynamic> GetDevOpsTasks()
@@ -164,6 +201,9 @@ namespace WpfApp1
 
                     foreach (KeyValuePair<TaskQueryName, dynamic> item in data)
                     {
+                        if (item.Value == null)
+                            continue;
+
                         // 得到Task Url
                         List<string> urls = new();
 
@@ -379,14 +419,26 @@ namespace WpfApp1
 
         private async void OnCounterClicked(object sender, RoutedEventArgs e)
         {
-            CounterBtn.IsEnabled = false;
+            try
+            {
+                CounterBtn.IsEnabled = false;
 
-            var isOk = await Check();
+                var isOk = await Check();
 
-            if (isOk)
-                await CreateReport();
-
-            CounterBtn.IsEnabled = true;
+                if (isOk)
+                {
+                    SaveSetting();
+                    await CreateReport();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            finally
+            {
+                CounterBtn.IsEnabled = true;
+            }
         }
 
         private void AddNewBox(object sender, RoutedEventArgs e)
@@ -419,6 +471,35 @@ namespace WpfApp1
                 }
             }
             return true;
+        }
+
+        private void SaveSetting()
+        {
+            List<SettingModel> settingsList = new List<SettingModel>();
+            foreach (var child in mainStackLayout.Children)
+            {
+                if (child is UserControl1 formBoxView)
+                {
+                    string organizationText = formBoxView.OrganizationText;
+                    string projectText = formBoxView.ProjectText;
+                    string tokenText = formBoxView.TokenText;
+
+                    settingsList.Add(new SettingModel
+                    {
+                        OrganizationText = organizationText,
+                        ProjectText = projectText,
+                        TokenText = tokenText
+                    });
+                }
+            }
+
+            if (settingsList.Any())
+            {
+                // 创建JSON字符串
+                string jsonContent = JsonConvert.SerializeObject(new { Setting = settingsList }, Formatting.Indented);
+                string jsonFilePath = "settings.json";
+                File.WriteAllText(jsonFilePath, jsonContent);
+            }
         }
     }
 

@@ -10,66 +10,68 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <StackPanel x:Name="stackLayout" Orientation="Vertical">
-            <!-- 第一个表格 -->
-            <Label x:Name="label1" Content="Created Task Total Original Estimate = XXX 小时" />
-            <ListView x:Name="listView1">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Project}" />
-                        <GridViewColumn Header="Task Name" DisplayMemberBinding="{Binding TaskName}" />
-                        <GridViewColumn Header="Original Estimate" DisplayMemberBinding="{Binding OriginalEstimate}" />
-                        <GridViewColumn Header="Parent User Story" DisplayMemberBinding="{Binding ParentUserStory}" />
-                        <!-- ... 其他列的 GridViewColumn -->
-                    </GridView>
-                </ListView.View>
-            </ListView>
+        <ScrollViewer>
+            <StackPanel x:Name="stackLayout" Orientation="Vertical">
+                <!-- 第一个表格 -->
+                <Label x:Name="label1" Content="Created Task Total Original Estimate = XXX 小时" />
+                <ListView x:Name="listView1">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Project}" />
+                            <GridViewColumn Header="Task Name" DisplayMemberBinding="{Binding TaskName}" />
+                            <GridViewColumn Header="Original Estimate" DisplayMemberBinding="{Binding OriginalEstimate}" />
+                            <GridViewColumn Header="Parent User Story" DisplayMemberBinding="{Binding ParentUserStory}" />
+                            <!-- ... 其他列的 GridViewColumn -->
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-            <!-- 第二个表格 -->
-            <Label x:Name="label2" Content="Closed Task Total Completed Work = XXX 小时" />
-            <ListView x:Name="listView2">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Project}" />
-                        <GridViewColumn Header="Task Name" DisplayMemberBinding="{Binding TaskName}" />
-                        <GridViewColumn Header="Completed Work" DisplayMemberBinding="{Binding CompletedWork}" />
-                        <GridViewColumn Header="Parent User Story" DisplayMemberBinding="{Binding ParentUserStory}" />
-                        <!-- ... 其他列的 GridViewColumn -->
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <!-- 第二个表格 -->
+                <Label x:Name="label2" Content="Closed Task Total Completed Work = XXX 小时" />
+                <ListView x:Name="listView2">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Project}" />
+                            <GridViewColumn Header="Task Name" DisplayMemberBinding="{Binding TaskName}" />
+                            <GridViewColumn Header="Completed Work" DisplayMemberBinding="{Binding CompletedWork}" />
+                            <GridViewColumn Header="Parent User Story" DisplayMemberBinding="{Binding ParentUserStory}" />
+                            <!-- ... 其他列的 GridViewColumn -->
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-            <!-- 第三个表格 -->
-            <Label x:Name="label3" Content="Closed Bug Total Completed Work = XXX 小时" />
-            <ListView x:Name="listView3">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Project}" />
-                        <GridViewColumn Header="Bug Name" DisplayMemberBinding="{Binding TaskName}" />
-                        <GridViewColumn Header="Completed Work" DisplayMemberBinding="{Binding CompletedWork}" />
-                        <GridViewColumn Header="Parent User Story" DisplayMemberBinding="{Binding ParentUserStory}" />
-                        <!-- ... 其他列的 GridViewColumn -->
-                    </GridView>
-                </ListView.View>
-            </ListView>
+                <!-- 第三个表格 -->
+                <Label x:Name="label3" Content="Closed Bug Total Completed Work = XXX 小时" />
+                <ListView x:Name="listView3">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Project}" />
+                            <GridViewColumn Header="Bug Name" DisplayMemberBinding="{Binding TaskName}" />
+                            <GridViewColumn Header="Completed Work" DisplayMemberBinding="{Binding CompletedWork}" />
+                            <GridViewColumn Header="Parent User Story" DisplayMemberBinding="{Binding ParentUserStory}" />
+                            <!-- ... 其他列的 GridViewColumn -->
+                        </GridView>
+                    </ListView.View>
+                </ListView>
 
-            <!-- 第四个表格 -->
-            <Label x:Name="label4" Content="New or Active Task Total Original Estimate = XXX 小时" />
-            <ListView x:Name="listView4">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Project}" />
-                        <GridViewColumn Header="Task Name" DisplayMemberBinding="{Binding TaskName}" />
-                        <GridViewColumn Header="Original Estimate" DisplayMemberBinding="{Binding OriginalEstimate}" />
-                        <GridViewColumn Header="Parent User Story" DisplayMemberBinding="{Binding ParentUserStory}" />
-                        <!-- ... 其他列的 GridViewColumn -->
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </StackPanel>
+                <!-- 第四个表格 -->
+                <Label x:Name="label4" Content="New or Active Task Total Original Estimate = XXX 小时" />
+                <ListView x:Name="listView4">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn Header="Task ID" DisplayMemberBinding="{Binding Id}" />
+                            <GridViewColumn Header="Project" DisplayMemberBinding="{Binding Project}" />
+                            <GridViewColumn Header="Task Name" DisplayMemberBinding="{Binding TaskName}" />
+                            <GridViewColumn Header="Original Estimate" DisplayMemberBinding="{Binding OriginalEstimate}" />
+                            <GridViewColumn Header="Parent User Story" DisplayMemberBinding="{Binding ParentUserStory}" />
+                            <!-- ... 其他列的 GridViewColumn -->
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </StackPanel>
+        </ScrollViewer>
     </Grid>
 </Window>
