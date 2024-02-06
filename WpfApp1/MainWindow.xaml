@@ -7,12 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        <ScrollViewer>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto">
             <StackPanel x:Name="mainStackLayout">
                 <Button x:Name="CounterBtn" Content="Click me" Click="OnCounterClicked" HorizontalAlignment="Stretch" />
-
+                <DatePicker x:Name="MyTimePicker" HorizontalAlignment="Stretch" VerticalAlignment="Center" Text="df" />
                 <!-- +号按钮 -->
                 <Button Content="+" Click="AddNewBox" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+                <TextBlock x:Name="logTextBlock" TextWrapping="Wrap" />
             </StackPanel>
         </ScrollViewer>
     </Grid>

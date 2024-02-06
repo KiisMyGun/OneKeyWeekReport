@@ -40,7 +40,15 @@ namespace WpfApp1
         public void LoadSetting()
         {
             string jsonFilePath = "settings.json";
+            if (!File.Exists(jsonFilePath))
+            {
+                // 如果文件不存在，创建并写入初始内容
+                string initialJsonContent = "{\r\n  \"Setting\": [\r\n    {\r\n      \"OrganizationText\": \"\",\r\n      \"ProjectText\": \"\",\r\n      \"TokenText\": \"\"\r\n    }\r\n  ]\r\n}";
+                File.WriteAllText(jsonFilePath, initialJsonContent);
+            }
+
             string jsonContent = File.ReadAllText(jsonFilePath);
+
             // 解析JSON内容
             JObject jsonObject = JObject.Parse(jsonContent);
 
@@ -128,7 +136,8 @@ namespace WpfApp1
                 if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine(responseBody);
+
+                    logTextBlock.Text += responseBody + "\n";
                     // 解析 JSON
                     JObject jsonObject = JObject.Parse(responseBody);
 
@@ -145,6 +154,7 @@ namespace WpfApp1
                     string parentUserStoryUrl = $"https://dev.azure.com/{organizationText}/{project}/_apis/wit/workItems/{parentUserStoryId}";
 
                     // 获取 User Story 的实际值
+                    logTextBlock.Text += $"**********获取 User Story Id {parentUserStoryId} 的实际值**********" + "\n";
                     string parentUserStory = await GetParentUserStoryValue(parentUserStoryUrl, token);
 
                     T result = new T();
@@ -197,7 +207,9 @@ namespace WpfApp1
             {
                 if (child is UserControl1 formBoxView)
                 {
-                    var data = await QueryByWiql(formBoxView.OrganizationText, formBoxView.ProjectText, formBoxView.TokenText);
+                    logTextBlock.Text += "===============================================" + "\n";
+                    logTextBlock.Text += $"**********开始访问组织{formBoxView.OrganizationText.Trim()},项目{formBoxView.ProjectText.Trim()}**********" + "\n";
+                    var data = await QueryByWiql(formBoxView.OrganizationText.Trim(), formBoxView.ProjectText.Trim(), formBoxView.TokenText.Trim());
 
                     foreach (KeyValuePair<TaskQueryName, dynamic> item in data)
                     {
@@ -221,29 +233,30 @@ namespace WpfApp1
                         // 得到Task 详情
                         foreach (var url in urls)
                         {
+                            logTextBlock.Text += $"**********开始访问TaskUrl{url},{item.Key.ToString()}信息**********" + "\n";
                             // 详情插入相应的表格中
                             switch (item.Key)
                             {
                                 case TaskQueryName.CreatedTask:
-                                    var createTask = await GetWorkItemDetails<CreatedTask>(url, formBoxView.OrganizationText, formBoxView.TokenText);
+                                    var createTask = await GetWorkItemDetails<CreatedTask>(url, formBoxView.OrganizationText.Trim(), formBoxView.TokenText.Trim());
                                     if (createTask != null)
                                         CreatedTasks.Add(createTask);
                                     break;
 
                                 case TaskQueryName.ClosedTask:
-                                    var closedTask = await GetWorkItemDetails<ClosedTask>(url, formBoxView.OrganizationText, formBoxView.TokenText);
+                                    var closedTask = await GetWorkItemDetails<ClosedTask>(url, formBoxView.OrganizationText.Trim(), formBoxView.TokenText.Trim());
                                     if (closedTask != null)
                                         ClosedTasks.Add(closedTask);
                                     break;
 
                                 case TaskQueryName.ClosedBug:
-                                    var closedBugs = await GetWorkItemDetails<ClosedBug>(url, formBoxView.OrganizationText, formBoxView.TokenText);
+                                    var closedBugs = await GetWorkItemDetails<ClosedBug>(url, formBoxView.OrganizationText.Trim(), formBoxView.TokenText.Trim());
                                     if (closedBugs != null)
                                         ClosedBugs.Add(closedBugs);
                                     break;
 
                                 case TaskQueryName.NewOrActiveTask:
-                                    var newOrActiveTask = await GetWorkItemDetails<NewOrActiveTask>(url, formBoxView.OrganizationText, formBoxView.TokenText);
+                                    var newOrActiveTask = await GetWorkItemDetails<NewOrActiveTask>(url, formBoxView.OrganizationText.Trim(), formBoxView.TokenText.Trim());
                                     if (newOrActiveTask != null)
                                         NewOrActiveTasks.Add(newOrActiveTask);
                                     break;
@@ -254,6 +267,7 @@ namespace WpfApp1
                         }
                     }
 
+                    logTextBlock.Text += "===============================================" + "\n";
                     //// 添加新的设置
                     //FormBoxView newSettings = new FormBoxView
                     //{
@@ -273,7 +287,7 @@ namespace WpfApp1
             // 发送到飞书
         }
 
-        static async Task<dynamic> ExecuteWiqlQuery(HttpClient client, string organization, string project, string wiqlQuery)
+        async Task<dynamic> ExecuteWiqlQuery(HttpClient client, string organization, string project, string wiqlQuery)
         {
             // 构建 API 端点
             string apiEndpoint = $"https://dev.azure.com/{organization}/{project}/_apis/wit/wiql?api-version=7.1-preview.2";
@@ -289,6 +303,7 @@ namespace WpfApp1
                 // 读取响应内容
                 string responseBody = await response.Content.ReadAsStringAsync();
 
+                logTextBlock.Text += responseBody + "\n";
                 // 将 JSON 响应转换为对象
                 return Newtonsoft.Json.JsonConvert.DeserializeObject<dynamic>(responseBody);
             }
@@ -328,6 +343,8 @@ namespace WpfApp1
                 if (response.IsSuccessStatusCode)
                 {
                     string responseBody = await response.Content.ReadAsStringAsync();
+                    logTextBlock.Text += responseBody + "\n";
+
                     JObject jsonUserStory = JObject.Parse(responseBody);
 
                     // 获取 User Story 的实际值，这里假设实际值在 "System.Title" 字段中
@@ -344,7 +361,7 @@ namespace WpfApp1
 
         private async Task<Dictionary<TaskQueryName, dynamic>> QueryByWiql(string organization, string project, string token)
         {
-            var startOfWeek = (DateTime.Now.DayOfWeek == DayOfWeek.Sunday ? DateTime.Now.AddDays(-6) : DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek)).ToShortDateString();
+            var startOfWeek = string.IsNullOrEmpty(MyTimePicker.Text) ? (DateTime.Now.DayOfWeek == DayOfWeek.Sunday ? DateTime.Now.AddDays(-6) : DateTime.Now.AddDays(-(int)DateTime.Now.DayOfWeek)).ToShortDateString() : MyTimePicker.Text;
 
             //string organization = "meetingzen";
             //string project = "ams";
@@ -421,6 +438,9 @@ namespace WpfApp1
         {
             try
             {
+                string logMessage = "Button clicked!";
+                logTextBlock.Text += logMessage + "\n";
+
                 CounterBtn.IsEnabled = false;
 
                 var isOk = await Check();
@@ -428,6 +448,7 @@ namespace WpfApp1
                 if (isOk)
                 {
                     SaveSetting();
+
                     await CreateReport();
                 }
             }
@@ -437,6 +458,7 @@ namespace WpfApp1
             }
             finally
             {
+                logTextBlock.Text += "Complte!!!";
                 CounterBtn.IsEnabled = true;
             }
         }
@@ -451,14 +473,19 @@ namespace WpfApp1
 
         private async Task<bool> Check()
         {
+            //if (string.IsNullOrEmpty(MyTimePicker.Text))
+            //{
+            //    MessageBox.Show("Please select start time.");
+            //    return false;
+            //}
             foreach (var child in mainStackLayout.Children)
             {
                 if (child is UserControl1 formBoxView)
                 {
                     // 在这里进行输入验证，例如检查是否为空
-                    bool isOrganizationEmpty = string.IsNullOrEmpty(formBoxView.OrganizationText);
-                    bool isProjectEmpty = string.IsNullOrEmpty(formBoxView.ProjectText);
-                    bool isTokenEmpty = string.IsNullOrEmpty(formBoxView.TokenText);
+                    bool isOrganizationEmpty = string.IsNullOrEmpty(formBoxView.OrganizationText.Trim());
+                    bool isProjectEmpty = string.IsNullOrEmpty(formBoxView.ProjectText.Trim());
+                    bool isTokenEmpty = string.IsNullOrEmpty(formBoxView.TokenText.Trim());
 
                     // 在这里可以执行其他验证逻辑
 
@@ -480,9 +507,9 @@ namespace WpfApp1
             {
                 if (child is UserControl1 formBoxView)
                 {
-                    string organizationText = formBoxView.OrganizationText;
-                    string projectText = formBoxView.ProjectText;
-                    string tokenText = formBoxView.TokenText;
+                    string organizationText = formBoxView.OrganizationText.Trim();
+                    string projectText = formBoxView.ProjectText.Trim();
+                    string tokenText = formBoxView.TokenText.Trim();
 
                     settingsList.Add(new SettingModel
                     {

@@ -5,7 +5,7 @@ VisualStudioVersion = 17.9.34526.213
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OneKeyWeekReport", "OneKeyWeekReport\OneKeyWeekReport.csproj", "{DB1EE183-2578-42D8-9E24-1F4B549137AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WpfApp1", "WpfApp1\WpfApp1.csproj", "{9E8EA992-2A60-4A11-8A8D-80C2BAB572F9}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OneKeyWeekReportApp", "WpfApp1\OneKeyWeekReprotApp.csproj", "{9E8EA992-2A60-4A11-8A8D-80C2BAB572F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
