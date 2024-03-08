@@ -197,6 +197,12 @@ namespace WpfApp1
 
         public async Task CreateReport()
         {
+            // 清除旧数据
+            CreatedTasks.Clear();
+            ClosedTasks.Clear();
+            ClosedBugs.Clear();
+            NewOrActiveTasks.Clear();
+
             //var settingsManager = new SettingsManager();
             // 保存配置
             List<UserControl1> allSettings = new List<UserControl1>();
