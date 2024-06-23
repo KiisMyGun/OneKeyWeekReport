@@ -1,0 +1,12 @@
+# 使用官方的Nginx镜像作为基础镜像
+FROM nginx:alpine
+
+# 将静态文件复制到容器中的Nginx服务器目录
+COPY /home/onekeyweekreport /usr/share/nginx/html
+VOLUME /home/onekeyweekreport /usr/share/nginx/html
+
+# 暴露80端口
+EXPOSE 80
+
+# 使用Nginx默认的启动命令
+CMD ["nginx", "-g", "daemon off;"]

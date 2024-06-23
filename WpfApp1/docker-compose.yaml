@@ -1,0 +1,10 @@
+version: '3.8'
+services:
+  onekeyweekreport:
+    image: nginx:alpine
+    ports:
+      - "5055:80"
+    volumes:
+      - /home/onekeyweekreport:/app/onekeyweekreport
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf  # 确保这里的路径正确指向nginx.conf文件
+    command: ["nginx", "-g", "daemon off;"]
